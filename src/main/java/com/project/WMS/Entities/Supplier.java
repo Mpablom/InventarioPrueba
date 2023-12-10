@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,16 @@ import java.util.List;
 @Getter
 @Table(name = "SUPPLIER")
 public class Supplier {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private long id;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "ADDRESS")
     private String address;
+    @Column(name = "CONTACT")
     private String contact;
+    @Column(name = "PRODUCTS_SUPPLIED")
     private List<Product> productsSupplied = new ArrayList<>();
 }

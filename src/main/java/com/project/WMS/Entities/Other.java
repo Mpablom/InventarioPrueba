@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,7 +16,10 @@ import javax.persistence.Table;
 @Getter
 @Table(name = "OTHER")
 public class Other {
+    @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "CATEGORY")
     private String category;
+    @Column(name = "BRAND")
     private String brand;
 }
