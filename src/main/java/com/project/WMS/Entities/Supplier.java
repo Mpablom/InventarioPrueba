@@ -26,6 +26,6 @@ public class Supplier {
     private String address;
     @Column(name = "CONTACT")
     private String contact;
-    @Column(name = "PRODUCTS_SUPPLIED")
-    private List<Product> productsSupplied = new ArrayList<>();
+    @OneToMany(mappedBy = "supplier")
+    private List<SupplierProduct> suppliedProducts = new ArrayList<>();
 }

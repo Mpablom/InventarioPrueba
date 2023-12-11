@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,17 +12,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@Table(name = "PRODUCT")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Product {
+@Table(name = "SUPPLIER_PRODUCT")
+public class SupplierProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long codeProduct;
-    @Column(name = "NAME")
-    private String name;
-    @Column(name = "PRICE")
-    private double price;
-    @Column(name = "STOCK")
-    private Integer stock;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "SUPPLIER_ID")
+    private Supplier supplier;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
 }
