@@ -1,6 +1,5 @@
 package com.project.WMS.Dtos;
 
-import com.project.WMS.Entities.Product;
 import com.project.WMS.Entities.SupplierProduct;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +13,8 @@ import java.util.List;
 @Setter
 @Getter
 public class SupplierDTO {
-    private String name;
-    private String address;
     private String contact;
+    private String name;
+    private String business;
     private List<SupplierProduct> suppliedProducts;
 }

@@ -20,12 +20,12 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
-    @Column(name = "NAME")
-    private String name;
-    @Column(name = "ADDRESS")
-    private String address;
     @Column(name = "CONTACT")
     private String contact;
-    @OneToMany(mappedBy = "supplier")
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "BUSINESS")
+    private String business;
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SupplierProduct> suppliedProducts = new ArrayList<>();
 }
