@@ -27,9 +27,11 @@ public class SupplierController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar la solicitud");
         }
     }
+
 
     @GetMapping("/suppliers")
     public ResponseEntity getSuppliers(){
@@ -41,13 +43,12 @@ public class SupplierController {
     }
     @GetMapping("/supplier")
     public ResponseEntity getSupplierByName(@RequestParam String name){
-        try {
-            SupplierDTO supplierDTO = supplierService.findByName(name);
+        SupplierDTO supplierDTO = supplierService.findByName(name);
+        if (supplierDTO != null) {
+            System.out.println("Nombre recibido: " + supplierDTO.getName());
             return ResponseEntity.ok(supplierDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar la solicitud");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Proveedor no encontrado con el nombre: " + name);
         }
     }
 

@@ -31,7 +31,7 @@ public class SupplierImplService implements SupplierService {
             throw new IllegalArgumentException("El nombre del proveedor no puede ser nulo o vacío");
         }
 
-        SupplierDTO existingSupplier = supplierRepository.findByName(supplierName);
+        Supplier existingSupplier = supplierRepository.findByNameIgnoreCase(supplierName);
         if (existingSupplier != null) {
             throw new IllegalArgumentException("Ya existe un proveedor con el nombre: " + supplierName);
         }
@@ -46,11 +46,14 @@ public class SupplierImplService implements SupplierService {
     }
     @Override
     public SupplierDTO findByName(String name) {
-        SupplierDTO supplierDTO = supplierRepository.findByName(name);
-        if (supplierDTO != null) {
+        Supplier supplier = supplierRepository.findByNameIgnoreCase(name);
+
+        if (supplier != null) {
+            SupplierDTO supplierDTO = new SupplierDTO();
+            BeanUtils.copyProperties(supplier, supplierDTO);
             return supplierDTO;
         } else {
-            throw new EntityNotFoundException("Proveedor no encontrado con el nombre: " + name);
+            return null;
         }
     }
 
@@ -59,7 +62,7 @@ public class SupplierImplService implements SupplierService {
         return supplierRepository.findAll();
     }
     @Override
-    public SupplierDTO updateSupplier(long id, SupplierDTO supplierDTO) {
+    public void updateSupplier(long id, SupplierDTO supplierDTO) {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
 
         if (optionalSupplier.isEmpty()) {
@@ -76,7 +79,6 @@ public class SupplierImplService implements SupplierService {
 
         SupplierDTO updatedSupplierDTO = new SupplierDTO();
         BeanUtils.copyProperties(updatedSupplier, updatedSupplierDTO);
-        return updatedSupplierDTO;
     }
     @Override
     public void deleteById(long id) {
